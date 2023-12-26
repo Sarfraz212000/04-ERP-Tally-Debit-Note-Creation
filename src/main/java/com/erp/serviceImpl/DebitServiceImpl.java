@@ -3,6 +3,7 @@ package com.erp.serviceImpl;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.entity.DebitEntity;
@@ -11,6 +12,7 @@ import com.erp.service.DebitService;
 @Service
 public class DebitServiceImpl implements DebitService{
 	
+	@Autowired
 	private DebitRepo repo;
 
 	@Override
