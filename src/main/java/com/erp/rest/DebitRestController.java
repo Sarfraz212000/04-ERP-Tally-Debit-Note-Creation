@@ -1,5 +1,7 @@
 package com.erp.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.entity.DebitEntity;
 import com.erp.service.DebitService;
 
 @RestController
+@RequestMapping("/erp-tally")
 public class DebitRestController {
 
 	@Autowired
@@ -28,9 +32,8 @@ public class DebitRestController {
 		}
 		return new ResponseEntity<String>("data not save in debitNote", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
 
-	@GetMapping("purchase/{id}")
+	@GetMapping("debit/{id}")
 	public ResponseEntity<DebitEntity> getByIdDebit(@PathVariable Integer id) {
 		DebitEntity entity = Services.getById(id);
 		if (entity != null) {
@@ -40,13 +43,13 @@ public class DebitRestController {
 		}
 	}
 
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("deleteDebit/{id}")
 	public ResponseEntity<String> deleteDebitById(@PathVariable Integer id) {
 		String delete = Services.deleteDebitById(id);
 		return new ResponseEntity<>(delete, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/updateDebit")
 	public ResponseEntity<DebitEntity> updateDebit(@RequestBody DebitEntity entity) {
 		DebitEntity updateDetails = Services.updateDebit(entity);
 		if (updateDetails != null) {
@@ -56,6 +59,15 @@ public class DebitRestController {
 		}
 
 	}
-	
-	
+
+	@GetMapping("/debits/{companyId}/{userId}")
+	public ResponseEntity<List<DebitEntity>> findAllDebitByCompanyIdAnduserId(@PathVariable Long companyId,@PathVariable Long userId) {
+		List<DebitEntity> companyIdOrUserId = Services.findByAllCompanyIdOrUserId(companyId, userId);
+		if (companyIdOrUserId != null) {
+			return new ResponseEntity<List<DebitEntity>>(companyIdOrUserId, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<DebitEntity>>(companyIdOrUserId, HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+
 }

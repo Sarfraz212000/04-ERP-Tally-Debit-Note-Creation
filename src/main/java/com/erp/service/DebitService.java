@@ -1,5 +1,7 @@
 package com.erp.service;
 
+import java.util.List;
+
 import com.erp.entity.DebitEntity;
 
 public interface DebitService {
@@ -11,6 +13,8 @@ public interface DebitService {
 	public String deleteDebitById(Integer id);
 
 	public DebitEntity updateDebit(DebitEntity entities);
+	
+	public List<DebitEntity> findByAllCompanyIdOrUserId(Long companyId,Long userId);
 
 
 }

@@ -1,5 +1,6 @@
 package com.erp.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -45,6 +46,12 @@ public class DebitServiceImpl implements DebitService{
 		BeanUtils.copyProperties(entities, debitEntity);
 		repo.save(debitEntity);
 		return debitEntity;
+	}
+
+	@Override
+	public List<DebitEntity> findByAllCompanyIdOrUserId(Long companyId, Long userId) {
+		return repo.findAllByCompanyIdAndUserId(companyId, userId);
+	
 	}
 
 }
