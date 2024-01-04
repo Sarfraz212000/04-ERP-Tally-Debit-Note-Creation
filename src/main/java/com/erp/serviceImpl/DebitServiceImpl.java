@@ -41,17 +41,28 @@ public class DebitServiceImpl implements DebitService{
 	}
 
 	@Override
-	public DebitEntity updateDebit(DebitEntity entities) {
-		DebitEntity debitEntity = repo.findById(entities.getDebitId()).get();
-		BeanUtils.copyProperties(entities, debitEntity);
-		repo.save(debitEntity);
-		return debitEntity;
+	public DebitEntity updateDebit(DebitEntity entities,Integer debitId) {
+		Optional<DebitEntity> optionalDebit = repo.findById(debitId);
+		if (optionalDebit.isPresent()) {
+			DebitEntity entity = optionalDebit.get();
+			BeanUtils.copyProperties(entities, entity);
+			entity.setDebitId(debitId);
+			return repo.save(entity);
+		}
+		return null;
+		
 	}
 
 	@Override
 	public List<DebitEntity> findByAllCompanyIdOrUserId(Long companyId, Long userId) {
 		return repo.findAllByCompanyIdAndUserId(companyId, userId);
 	
+	}
+	
+
+	@Override
+	public List<DebitEntity> getAllDebit() {
+		return repo.findAll();
 	}
 
 }

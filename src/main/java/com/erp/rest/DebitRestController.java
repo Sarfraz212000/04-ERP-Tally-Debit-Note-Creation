@@ -49,9 +49,10 @@ public class DebitRestController {
 		return new ResponseEntity<>(delete, HttpStatus.OK);
 	}
 
-	@PutMapping("/updateDebit")
-	public ResponseEntity<DebitEntity> updateDebit(@RequestBody DebitEntity entity) {
-		DebitEntity updateDetails = Services.updateDebit(entity);
+	@PutMapping("/updateDebit/{debitId}")
+	public ResponseEntity<DebitEntity> updateDebit(@PathVariable Integer debitId,@RequestBody DebitEntity entity) {
+		DebitEntity updateDetails = Services.updateDebit(entity, debitId);
+				
 		if (updateDetails != null) {
 			return new ResponseEntity<>(updateDetails, HttpStatus.OK);
 		} else {
@@ -69,5 +70,11 @@ public class DebitRestController {
 		return new ResponseEntity<List<DebitEntity>>(companyIdOrUserId, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
-
+	
+	@GetMapping("/debitnotes")
+	public ResponseEntity<List<DebitEntity>> getAllDebitNote(){
+		List<DebitEntity> allDebits = Services.getAllDebit();
+		return new ResponseEntity<List<DebitEntity>>(allDebits,HttpStatus.OK);
+		
+	}
 }

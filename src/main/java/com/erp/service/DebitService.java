@@ -12,9 +12,11 @@ public interface DebitService {
 
 	public String deleteDebitById(Integer id);
 
-	public DebitEntity updateDebit(DebitEntity entities);
+	public DebitEntity updateDebit(DebitEntity entities,Integer debitId);
 	
 	public List<DebitEntity> findByAllCompanyIdOrUserId(Long companyId,Long userId);
+	
+	public List<DebitEntity> getAllDebit();
 
 
 }
